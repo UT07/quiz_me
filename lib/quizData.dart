@@ -69,19 +69,35 @@ class QuizData {
     ),
   ];
 
-  String getQuestionText(int questionNumber) {
-    return _questions[questionNumber].questionText;
+  String getQuestionText() {
+    return _questions[_questionNumber].questionText;
   }
 
   int questionsLength() {
     return _questions.length;
   }
 
-  bool answers(int questionNumber) {
-    return _questions[questionNumber].answer;
+  bool getCorrectAnswer() {
+    return _questions[_questionNumber].answer;
   }
 
   int getQuestionNumber() {
     return _questionNumber;
+  }
+
+  void nextQuestion() {
+    if (_questions.length - 1 > _questionNumber) {
+      _questionNumber++;
+      print(_questionNumber);
+    }
+  }
+
+  bool isFinished() {
+    if (_questionNumber >= _questions.length - 1) return true;
+    return false;
+  }
+
+  void reset() {
+    _questionNumber = 0;
   }
 }
