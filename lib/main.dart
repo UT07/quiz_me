@@ -32,6 +32,7 @@ class _QuizPageState extends State<QuizPage> {
   List<Widget> scoreKeeper = [];
   int questionNumber = quizData.getQuestionNumber();
   int quizLength = quizData.questionsLength();
+  int score = quizData.getScore();
   void checkAnswer(bool userSelectedAnswer) {
     bool correctAnswer = quizData.getCorrectAnswer();
     setState(() {
@@ -39,7 +40,7 @@ class _QuizPageState extends State<QuizPage> {
         Alert(
           context: context,
           title: 'Finished!!',
-          desc: 'You\'ve reached the end of the quiz.',
+          desc: 'You\'ve reached the end of the quiz. You scored $score',
           style: AlertStyle(
             backgroundColor: Colors.grey.shade900,
             titleStyle:
@@ -50,13 +51,18 @@ class _QuizPageState extends State<QuizPage> {
         quizData.reset();
         scoreKeeper = [];
       } else {
-        correctAnswer == userSelectedAnswer
-            ? scoreKeeper.add(
-                Icon(Icons.check, color: Colors.green),
-              )
-            : scoreKeeper.add(
-                Icon(Icons.close, color: Colors.red),
-              );
+        if (correctAnswer == userSelectedAnswer) {
+          scoreKeeper.add(
+            Icon(Icons.check, color: Colors.green),
+          );
+          score = quizData.getScore() + 1;
+          quizData.setScore(score);
+        } else {
+          scoreKeeper.add(
+            Icon(Icons.close, color: Colors.red),
+          );
+        }
+
         quizData.nextQuestion();
       }
     });

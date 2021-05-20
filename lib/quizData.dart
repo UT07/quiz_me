@@ -2,6 +2,7 @@ import './question.dart';
 
 class QuizData {
   int _questionNumber = 0;
+  int _score = 0;
   List<Question> _questions = [
     Question(
       'You can lead a cow down stairs but not up stairs.',
@@ -85,6 +86,14 @@ class QuizData {
     return _questionNumber;
   }
 
+  int getScore() {
+    return _score;
+  }
+
+  void setScore(int score) {
+    this._score = score;
+  }
+
   void nextQuestion() {
     if (_questions.length - 1 > _questionNumber) {
       _questionNumber++;
@@ -99,5 +108,6 @@ class QuizData {
 
   void reset() {
     _questionNumber = 0;
+    _score = 0;
   }
 }
